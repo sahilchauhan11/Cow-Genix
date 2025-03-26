@@ -18,6 +18,9 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
+
+
+    res.cookie("token", token, { httpOnly: true, secure: true })
    return  res.status(201).json({ message: 'User created' });
   } catch (error) {
    return  res.status(400).json({ error: error.message });
@@ -33,9 +36,28 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     const token = jwt.sign({ id: user._id }, 'jwtsecret', { expiresIn: '1h' });
-    res.json({ token, user });
+    res.cookie("token", token, { httpOnly: true, secure: true })
+    return res.json({ token, user });
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+router.post("/logout", async (req, res) => {
+  try {
+    console.log(req)
+    const {token } = req.cookies;
+    
+if(!token){
+    return res.status(400).json({success:false,message:"NO LOGIN"})
+}
+console.log(token)
+  res.clearCookie("token");
+  return res.status(200).json({success:true})
+   
+
+ 
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 });
 

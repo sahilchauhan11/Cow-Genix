@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
+import VetNavbar from "../components/VetNavbar";
 const VetProfile = () => {
   const initialVetData = {
     name: "Dr. Aryan Mehta",
@@ -121,6 +122,7 @@ const VetProfile = () => {
           Logout
         </button>
       </div>
+      <VetNavbar/>
     </div>
   );
 };
