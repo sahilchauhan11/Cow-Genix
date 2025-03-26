@@ -2,15 +2,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const VetNavbar = () => {
   return (
     <nav className="fixed bottom-0 w-full bg-white p-4 flex justify-around shadow-md">
-      <Link to="/home" className="text-black">Dashboard</Link>
+      <Link to="/vet/dashboard" className="text-black">Dashboard</Link>
       
-      <Link to="/profile" className="text-gray-500">Profile</Link>
+      <Link to="/vet/profile" className="text-gray-500">Profile</Link>
       <Link to="/alertPage" className="text-gray-500">Alert</Link>
     </nav>
   );
 };
 
-export default Navbar;
+export default VetNavbar;

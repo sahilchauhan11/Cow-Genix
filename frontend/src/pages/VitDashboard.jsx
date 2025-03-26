@@ -3,6 +3,7 @@ import AppointmentCard from "../components/AppointmentCard";
 import HealthReport from "../components/HealthReport";
 import BreedingConsultation from "../components/BreedingConsultation";
 import Navbar from "../components/Navbar";
+import VetNavbar from "../components/VetNavbar";
 
 const VitDashboard = () => {
   // Static Data for Vet Dashboard
@@ -49,7 +50,7 @@ const VitDashboard = () => {
         ))}
       </section>
 
-      <Navbar />
+      <VetNavbar />
     </div>
   );
 };
