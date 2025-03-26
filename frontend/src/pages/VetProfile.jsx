@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import axios from 'axios';
 const VetProfile = () => {
   const initialVetData = {
     name: "Dr. Aryan Mehta",
@@ -26,9 +27,20 @@ const VetProfile = () => {
     setEditMode(false);
   };
 
-  const handleLogout = () => {
-    navigate("/vet/login");
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/auth/vet/logout", {}, { withCredentials: true });
+  
+      if (res.data.success) {
+        navigate("/vet/login");
+      } else {
+        console.error("Logout unsuccessful:", res.data);
+      }
+    } catch (error) {
+      console.error("Logout failed:", error.response?.data || error.message);
+    }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">

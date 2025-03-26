@@ -15,7 +15,7 @@ const VetLogin = () => {
       const res = await axios.post("http://localhost:5000/auth/vet/login", {
         email,
         password,
-      });
+      },{withCredentials:true});
       console.log("Vet login successful:", res.data);
       navigate("/vet/dashboard");
     } catch (error) {

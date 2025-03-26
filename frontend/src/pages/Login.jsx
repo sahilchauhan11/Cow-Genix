@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/auth/user/login', { email, password });
+      const res = await axios.post('http://localhost:5000/auth/user/login', { email, password },{withCredentials:true});
       console.log('Login successful:', res.data);
       navigate("/home")
     } catch (error) {
