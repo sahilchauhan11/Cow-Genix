@@ -5,6 +5,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const twilio = require('twilio');
+const Vet = require('../models/Vet');
+const { userMiddleware } = require('../middlewares/user.middleware');
 
 // const accountSid = process.env.TWILIO_ACCOUNT_SID;
 // const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -12,20 +14,33 @@ const twilio = require('twilio');
 // const client = new twilio(accountSid, authToken);
 
 // Signup Route
+// Signup Route
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone } = req.body; // Added phone
+    if (!name || !email || !password || !phone) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ name, email, phone, password: hashedPassword }); // Added phone
     await user.save();
 
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'jwtsecret', { expiresIn: '1h' });
 
-    res.cookie("token", token, { httpOnly: true, secure: true })
-   return  res.status(201).json({ message: 'User created' });
+    res.cookie("token", token, { httpOnly: true, secure: true });
+
+    return res.status(201).json({ message: 'User created', token, user });
   } catch (error) {
-   return  res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 });
+
 
 // Login Route
 router.post('/login', async (req, res) => {
@@ -44,15 +59,50 @@ router.post('/login', async (req, res) => {
 });
 router.post("/logout", async (req, res) => {
   try {
-    console.log(req)
     const {token } = req.cookies;
     
 if(!token){
     return res.status(400).json({success:false,message:"NO LOGIN"})
 }
-console.log(token)
   res.clearCookie("token");
   return res.status(200).json({success:true})
+   
+
+ 
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
+router.get("/allvet", async (req, res) => {
+  try {
+   const vetArr=await Vet.find().select("-password");
+   return res.status(200).json({success:true,vetArr})
+   
+
+ 
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
+router.get("/vet/:id",userMiddleware, async (req, res) => {
+  try {
+    const id=req.params.id;
+   const vet=await Vet.findOne({_id:id}).select("-password");
+   return res.status(200).json({success:true,vet})
+   
+
+ 
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
+router.get("/profile",userMiddleware, async (req, res) => {
+  try {
+    const {id}=req.user;
+   const user=await User.findById(id).select("-password");
+   console.log(user);
+   
+   return res.status(200).json({success:true,user})
    
 
  

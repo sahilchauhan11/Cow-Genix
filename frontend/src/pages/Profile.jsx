@@ -1,19 +1,15 @@
 // src/pages/Profile.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
 const Profile = () => {
-  const initialUserData = {
-    name: "Aarav Mehta",
-    email: "aarav.mehta@example.com",
-    phone: "+91 98765 43210",
-  };
+  
 
-  const [user, setUser] = useState(initialUserData);
+  const [user, setUser] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [updatedUser, setUpdatedUser] = useState(initialUserData);
+  const [updatedUser, setUpdatedUser] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,6 +21,22 @@ const Profile = () => {
     setUser(updatedUser);
     setEditMode(false);
   };
+useEffect(() => {
+  
+const func=async()=>{
+  const response=await axios.get("http://localhost:5000/auth/user/profile", { withCredentials: true });
+  console.log(response);
+  if(response.data.success){
+    setUser(response.data.user);
+    setUpdatedUser(response.data.user);
+
+  }
+} 
+func();
+  return () => {
+    
+  }
+}, [])
 
   const handleLogout = async () => {
     try {
@@ -39,6 +51,7 @@ const Profile = () => {
       console.error("Logout failed:", error.response?.data || error.message);
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">

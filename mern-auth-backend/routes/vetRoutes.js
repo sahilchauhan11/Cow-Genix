@@ -1,7 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Vet = require("../models/Vet"); // Import the Vet schema
+const Vet = require("../models/Vet");
+const { vetMiddleware } = require("../middlewares/vet.middleware");
+ // Import the Vet schema
 
 const router = express.Router();
 
@@ -43,10 +45,8 @@ router.post("/login", async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign({ id: vet._id }, "jwtsecret", { expiresIn: "1h" });
-    console.log(token);
     
     res.cookie("token", token, { httpOnly: true, secure: true })
-    console.log(res)
    return  res.json({ token, vet ,success:true});
   } catch (error) {
      return res.status(400).json({ error: error.message });
@@ -54,13 +54,11 @@ router.post("/login", async (req, res) => {
 });
 router.post("/logout", async (req, res) => {
   try {
-    console.log(req)
     const {token } = req.cookies;
     
 if(!token){
     return res.status(400).json({success:false,message:"NO LOGIN"})
 }
-console.log(token)
   res.clearCookie("token");
   return res.status(200).json({success:true})
    
@@ -71,4 +69,18 @@ console.log(token)
   }
 });
 
+router.get("/profile",vetMiddleware, async (req, res) => {
+  try {
+    const {id}=req.vet;
+   const vet=await Vet.findById(id).select("-password");
+   console.log(vet);
+   
+   return res.status(200).json({success:true,vet})
+   
+
+ 
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
 module.exports = router;

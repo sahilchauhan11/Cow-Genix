@@ -16,12 +16,16 @@ import OtpLogin from "./pages/OtpLogin";
 import VetSignUp from "./pages/VetSignup";
 import VetLogin from "./pages/VetLogin";
 import VetProfile from "./pages/VetProfile";
+import Vets from "./pages/Vets";
+import UserVetProfile from "./pages/UserVetProfile";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<SignUp />} />
+        <Route path="/vets" element={<Vets />} />
+        <Route path="/vet/:id" element={<UserVetProfile />} />
         <Route path="/vet/signup" element={<VetSignUp />} />
         <Route path="/vet/dashboard" element={<VitDashboard />} />
         <Route path="/vet/profile" element={<VetProfile />} />

@@ -1,21 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 import VetNavbar from "../components/VetNavbar";
 const VetProfile = () => {
-  const initialVetData = {
-    name: "Dr. Aryan Mehta",
-    email: "aryan.mehta@example.com",
-    phone: "+91 98765 43210",
-    specialization: "Veterinary Surgery",
-    experience: 10,
-    clinic: "Mehta Pet Care Clinic"
-  };
+ 
 
-  const [vet, setVet] = useState(initialVetData);
+  const [vet, setVet] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [updatedVet, setUpdatedVet] = useState(initialVetData);
+  const [updatedVet, setUpdatedVet] = useState(vet);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,7 +34,22 @@ const VetProfile = () => {
       console.error("Logout failed:", error.response?.data || error.message);
     }
   };
+  useEffect(() => {
+  const func=async()=>{
+    const response=await axios.get("http://localhost:5000/auth/vet/profile", { withCredentials: true });
+    console.log(response);
+    if(response.data.success){
+      setVet(response.data.vet);
+      setUpdatedVet(response.data.vet);
+   
   
+    }
+  } 
+  func();
+    return () => {
+      
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
