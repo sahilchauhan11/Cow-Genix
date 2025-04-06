@@ -11,6 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(`Making request to: ${process.env.REACT_APP_URL}/auth/user/login`);
       const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/login`, { email, password },{withCredentials:true});
       console.log('Login successful:', res);
       navigate("/home")
