@@ -17,7 +17,7 @@ const VetProfile = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        "http://localhost:5001/auth/vet/profile",
+       `${process.env.URL}/auth/vet/profile`,
         updatedVet,
         { withCredentials: true }
       );
@@ -32,7 +32,7 @@ const VetProfile = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:5001/auth/vet/logout", {}, { withCredentials: true });
+      const res = await axios.post(`${process.env.URL}/auth/vet/logout`, {}, { withCredentials: true });
       if (res.data.success) {
         navigate("/vet/login");
       }
