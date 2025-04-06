@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/login`, { email, password },{withCredentials:true});
-      console.log('Login successful:', res.data);
+      console.log('Login successful:', res);
       navigate("/home")
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
