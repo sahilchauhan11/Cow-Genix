@@ -8,7 +8,7 @@ const VetNavbar = () => {
       <Link to="/vet/dashboard" className="text-black">Dashboard</Link>
       
       <Link to="/vet/profile" className="text-gray-500">Profile</Link>
-      <Link to="/alertPage" className="text-gray-500">Alert</Link>
+      <Link to="/vet/alert" className="text-gray-500">Alert</Link>
     </nav>
   );
 };
