@@ -10,40 +10,71 @@ const UserVetProfile = () => {
     useEffect(() => {
         const fetchVet = async () => {
             try {
-                const response = await axios(`http://localhost:5000/auth/user/vet/${id}`, { withCredentials: true });
+                const response = await axios(`http://localhost:5001/auth/user/vet/${id}`, { withCredentials: true });
                 if (response.data.success) {
                     setVet(response.data.vet);
                 }
             } catch (err) {
-                console.log(err);
+                console.error("Failed to fetch vet profile:", err);
             }
         };
         fetchVet();
     }, [id]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white py-6  w-screen">
-            <div className="w-[70%]   h-[80vh] p-12 shadow-2xl bg-gray-800 rounded-3xl flex flex-col justify-center">
-                {vet ? (
-                    <div className='w-full h-full flex flex-col items-center'>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> USERNAME <span className='text-white  text-2xl'> {vet.name}</span></h2>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> Specialization <span className='text-white text-2xl'> {vet.specialization}</span></h2>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> Experience <span className='text-white text-2xl'> {vet.experience}</span></h2>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> Phone <span className='text-white text-2xl'> {vet.phone}</span></h2>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> Clinic <span className='text-white text-2xl'> {vet.clinic}</span></h2>
-                        <h2 className="text-4xl w-full font-semibold uppercase text-center mb-6 flex justify-between text-gray-400"> Email <span className='text-white text-2xl'> {vet.email}</span></h2>
-                       
-                        <button className='bg-blue-500 p-5 w-fit rounded-lg'>GET APPOINTMENT</button>
-                       
-                        
+        <div className="min-h-screen bg-gray-50 text-gray-900">
+            <Navbar />
+            <main className="container mx-auto px-4 py-8 flex justify-center">
+                <div className="w-full max-w-2xl">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 p-6">
+                        {vet ? (
+                            <div className="space-y-6">
+                                <div className="flex items-center mb-6">
+                                    <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                                        <span className="text-2xl font-semibold text-indigo-600">
+                                            {vet.name?.charAt(0) || "V"}
+                                        </span>
+                                    </div>
+                                    <h2 className="text-3xl font-bold text-indigo-600">Dr. {vet.name}</h2>
+                                </div>
+
+                                <div className="grid gap-4">
+                                    <div className="flex items-center">
+                                        <span className="w-32 font-medium text-gray-700">Specialization:</span>
+                                        <span className="text-gray-600">{vet.specialization || "Not specified"}</span>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <span className="w-32 font-medium text-gray-700">Experience:</span>
+                                        <span className="text-gray-600">{vet.experience ? `${vet.experience} years` : "Not specified"}</span>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <span className="w-32 font-medium text-gray-700">Phone:</span>
+                                        <span className="text-gray-600">{vet.phone || "Not specified"}</span>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <span className="w-32 font-medium text-gray-700">Clinic:</span>
+                                        <span className="text-gray-600">{vet.clinic || "Not specified"}</span>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <span className="w-32 font-medium text-gray-700">Email:</span>
+                                        <span className="text-gray-600">{vet.email || "Not specified"}</span>
+                                    </div>
+                                </div>
+
+                                <button 
+                                    className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200 font-medium mt-6"
+                                >
+                                    Get Appointment
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="text-center py-12">
+                                <p className="text-gray-500 text-lg">Loading veterinarian profile...</p>
+                            </div>
+                        )}
                     </div>
-                ) : (
-                    <p className="text-gray-300 text-2xl text-center">Loading...</p>
-                )}
-            </div>
-            <div className="mt-10 w-screen">
-                <Navbar />
-            </div>
+                </div>
+            </main>
         </div>
     );
 }

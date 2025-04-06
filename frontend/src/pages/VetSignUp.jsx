@@ -24,7 +24,7 @@ const VetSignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/auth/vet/signup", vetData,{withCredentials:true});
+      const res = await axios.post("http://localhost:5001/auth/vet/signup", vetData,{withCredentials:true});
       console.log("Vet Signup successful:", res.data);
       navigate("/vet/dashboard");
     } catch (error) {

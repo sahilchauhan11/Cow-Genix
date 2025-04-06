@@ -13,11 +13,12 @@ import { LogIn } from "lucide-react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import OtpLogin from "./pages/OtpLogin";
-import VetSignUp from "./pages/VetSignup";
+import VetSignUp from "./pages/VetSignUp";
 import VetLogin from "./pages/VetLogin";
 import VetProfile from "./pages/VetProfile";
 import Vets from "./pages/Vets";
 import UserVetProfile from "./pages/UserVetProfile";
+
 
 const App = () => {
   return (

@@ -19,6 +19,7 @@ const AlertsPage = () => {
       <Header />
       <AlertsSection title="Today" alerts={todayAlerts} />
       <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
+    
     </div>
   );
 };
@@ -26,6 +27,7 @@ const AlertsPage = () => {
 const Header = () => (
   <div className="flex items-center justify-center pb-6 border-b border-gray-300">
     <h2 className="text-3xl font-bold text-gray-800">Alerts</h2>
+    <Navbar/>
   </div>
 );
 
