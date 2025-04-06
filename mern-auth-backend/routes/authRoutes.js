@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
     const user = new User({ name, email, phone, password: hashedPassword }); // Added phone
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'jwtsecret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET , { expiresIn: '1h' });
 
     res.cookie("token", token, { httpOnly: true, secure: true });
 
