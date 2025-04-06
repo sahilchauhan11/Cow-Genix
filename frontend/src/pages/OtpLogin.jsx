@@ -10,7 +10,7 @@ const OtpLogin = () => {
   const sendOtp = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5001/auth/send-otp', { phone });
+      await axios.post(`${process.env.URL}/auth/send-otp`, { phone });
       setSent(true);
     } catch (error) {
       console.error('OTP send error:', error.response?.data || error.message);
@@ -20,7 +20,7 @@ const OtpLogin = () => {
   const verifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/auth/verify-otp', { phone, otp });
+      const res = await axios.post(`${process.env.URL}/auth/verify-otp`, { phone, otp });
       console.log('OTP verified:', res.data);
     } catch (error) {
       console.error('OTP verification error:', error.response?.data || error.message);
