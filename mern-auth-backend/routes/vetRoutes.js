@@ -25,7 +25,7 @@ router.post("/signup", async (req, res) => {
     const vet = new Vet({ name, email, phone, specialization, experience, clinic, password: hashedPassword });
     await vet.save();
     const token = jwt.sign({ id: vet._id }, "jwtsecret", { expiresIn: "1h" });
-    res.cookie("token", token, { httpOnly: true, secure: true })
+    res.cookie("token", token, { httpOnly: true, secure: true,sameSite: 'None', })
     return res.status(201).json({ message: "Vet registered successfully",vet });
   } catch (error) {
     return res.status(400).json({ error: error.message });
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
     // Generate JWT token
     const token = jwt.sign({ id: vet._id }, "jwtsecret", { expiresIn: "1h" });
     
-    res.cookie("token", token, { httpOnly: true, secure: true })
+    res.cookie("token", token, { httpOnly: true, secure: true,sameSite: 'None', })
    return  res.json({ token, vet ,success:true});
   } catch (error) {
      return res.status(400).json({ error: error.message });
