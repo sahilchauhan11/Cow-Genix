@@ -1,6 +1,6 @@
 // src/pages/Dashboard.js
 import React from "react";
-import HealthAlert from "../components/ HealthAlert";
+import HealthAlert from "../components/HealthAlert";
 import BreedingRecommendation from "../components/BreedingRecommendation";
 import VetDiscussion from "../components/VetDiscussion";
 import Navbar from "../components/Navbar";
