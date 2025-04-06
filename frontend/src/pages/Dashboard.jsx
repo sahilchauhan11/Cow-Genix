@@ -25,35 +25,41 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold">Dashboard</h1>
-
-      {/* Cow Health Alerts */}
-      <section>
-        <h2 className="font-semibold mt-4">Cow Health Alerts</h2>
-        {healthAlerts.map((alert, index) => (
-          <HealthAlert key={index} name={alert.name} id={alert.id} issue={alert.issue} />
-        ))}
-      </section>
-
-      {/* Breeding Recommendations */}
-      <section>
-        <h2 className="font-semibold mt-4">Breeding Recommendations</h2>
-        {breedingRecommendations.map((breeding, index) => (
-          <BreedingRecommendation key={index} name={breeding.name} id={breeding.id} recommendation={breeding.recommendation} />
-        ))}
-      </section>
-
-      {/* Vet Discussions */}
-      <section>
-        <h2 className="font-semibold mt-4">Vet Discussions</h2>
-        {vetDiscussions.map((vet, index) => (
-          <VetDiscussion key={index} doctor={vet.doctor} schedule={vet.schedule} />
-        ))}
-      </section>
-
+    <>
       <Navbar />
-    </div>
+      <div className="px-6 pt-4 pb-8">
+        <h1 className="text-xl font-bold">Dashboard</h1>
+
+        {/* Cow Health Alerts */}
+        <section>
+          <h2 className="font-semibold mt-4">Cow Health Alerts</h2>
+          {healthAlerts.map((alert, index) => (
+            <HealthAlert key={index} name={alert.name} id={alert.id} issue={alert.issue} />
+          ))}
+        </section>
+
+        {/* Breeding Recommendations */}
+        <section>
+          <h2 className="font-semibold mt-4">Breeding Recommendations</h2>
+          {breedingRecommendations.map((breeding, index) => (
+            <BreedingRecommendation
+              key={index}
+              name={breeding.name}
+              id={breeding.id}
+              recommendation={breeding.recommendation}
+            />
+          ))}
+        </section>
+
+        {/* Vet Discussions */}
+        <section>
+          <h2 className="font-semibold mt-4">Vet Discussions</h2>
+          {vetDiscussions.map((vet, index) => (
+            <VetDiscussion key={index} doctor={vet.doctor} schedule={vet.schedule} />
+          ))}
+        </section>
+      </div>
+    </>
   );
 };
 
