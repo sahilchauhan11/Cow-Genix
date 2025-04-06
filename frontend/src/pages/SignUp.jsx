@@ -15,7 +15,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.URL}/auth/user/signup`, { name, email, phone, password }, { withCredentials: true });
+      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/signup`, { name, email, phone, password }, { withCredentials: true });
       console.log('Signup successful:', res.data);
       navigate("/home");
     } catch (error) {
