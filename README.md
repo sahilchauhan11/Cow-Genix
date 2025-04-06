@@ -31,8 +31,8 @@ Cow Genix is a smart veterinary management web app focused on **reviving and pro
 
 1. **Clone the repo**:
    ```sh
-   git clone https://github.com/smolvamp/cow-genix.git
-   cd cow-genix
+   git clone https://github.com/sahilchauhan11/Cow-Genix
+   cd Cow-Genix
    ```
 2. **Backend Setup**:
    ```sh
