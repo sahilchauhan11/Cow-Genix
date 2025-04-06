@@ -9,7 +9,7 @@ const Vets = () => {
     useEffect(() => {
         const fetchVets = async () => {
             try {
-                const response = await axios(`${process.env.URL}/auth/user/allvet`, { withCredentials: true });
+                const response = await axios.get(`${process.env.REACT_APP_URL}/auth/user/allvet`, { withCredentials: true });
                 if (response.data.success) {
                     setVets(response.data.vetArr);
                 }

@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: vet._id }, "jwtsecret", { expiresIn: "1h" });
+    const token = jwt.sign({ id: vet._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     
     res.cookie("token", token, { httpOnly: true, secure: true,sameSite: 'None', })
    return  res.json({ token, vet ,success:true});
