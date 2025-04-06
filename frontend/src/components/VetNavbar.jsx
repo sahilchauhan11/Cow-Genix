@@ -1,14 +1,26 @@
 // src/components/Navbar.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const VetNavbar = () => {
   return (
     <nav className="fixed bottom-0 w-full bg-white p-4 flex justify-around shadow-md">
-      <Link to="/vet/dashboard" className="text-black">Dashboard</Link>
+      <NavLink to="/vet/dashboard" className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold"
+              : "text-gray-500 hover:text-blue-500"
+          }>Dashboard</NavLink>
       
-      <Link to="/vet/profile" className="text-gray-500">Profile</Link>
-      <Link to="/vet/alert" className="text-gray-500">Alert</Link>
+      <NavLink to="/vet/profile" className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold"
+              : "text-gray-500 hover:text-blue-500"
+          }>Profile</NavLink>
+      <NavLink to="/vet/alert" className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold"
+              : "text-gray-500 hover:text-blue-500"
+          }>Alert</NavLink>
     </nav>
   );
 };
