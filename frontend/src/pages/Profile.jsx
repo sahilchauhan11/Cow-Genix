@@ -1,12 +1,9 @@
-// src/pages/Profile.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
 const Profile = () => {
-  
-
   const [user, setUser] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({});
@@ -16,99 +13,134 @@ const Profile = () => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    setUser(updatedUser);
-    setEditMode(false);
+    try {
+      const response = await axios.put(
+        "http://localhost:5001/auth/user/profile",
+        updatedUser,
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        setUser(response.data.user);
+        setEditMode(false);
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
   };
-useEffect(() => {
-  
-const func=async()=>{
-  const response=await axios.get("http://localhost:5000/auth/user/profile", { withCredentials: true });
-  console.log(response);
-  if(response.data.success){
-    setUser(response.data.user);
-    setUpdatedUser(response.data.user);
 
-  }
-} 
-func();
-  return () => {
-    
-  }
-}, [])
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get("http://localhost:5001/auth/user/profile", { withCredentials: true });
+        if (response.data.success) {
+          setUser(response.data.user);
+          setUpdatedUser(response.data.user);
+        }
+      } catch (error) {
+        console.error("Fetch profile failed:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/auth/user/logout", {}, { withCredentials: true });
-
+      const res = await axios.post("http://localhost:5001/auth/user/logout", {}, { withCredentials: true });
       if (res.data.success) {
         navigate("/");
-      } else {
-        console.error("Logout unsuccessful:", res.data);
       }
     } catch (error) {
-      console.error("Logout failed:", error.response?.data || error.message);
+      console.error("Logout failed:", error);
     }
   };
-  
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="w-96 p-6 shadow-lg bg-gray-800 rounded-2xl">
-        <h2 className="text-center text-2xl font-semibold mb-4">User Profile</h2>
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <Navbar />
+      <main className="container mx-auto px-4 py-8 flex justify-center">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                <span className="text-xl font-semibold text-indigo-600">
+                  {user.name?.charAt(0) || "U"}
+                </span>
+              </div>
+              <h2 className="text-2xl font-bold text-indigo-600">Your Profile</h2>
+            </div>
 
-        {editMode ? (
-          <form onSubmit={handleUpdate} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              value={updatedUser.name}
-              onChange={handleChange}
-              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-            <input
-              type="email"
-              name="email"
-              value={updatedUser.email}
-              readOnly
-              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-400 outline-none"
-            />
-            <input
-              type="text"
-              name="phone"
-              value={updatedUser.phone}
-              onChange={handleChange}
-              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none"
-            />
+            {editMode ? (
+              <form onSubmit={handleUpdate} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={updatedUser.name || ""}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-md border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={updatedUser.email || ""}
+                    readOnly
+                    className="w-full px-4 py-2 rounded-md border border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Phone</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={updatedUser.phone || ""}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-md border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200 font-medium"
+                >
+                  Save Changes
+                </button>
+              </form>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <span className="w-24 font-medium text-gray-700">Name:</span>
+                  <span className="text-gray-600">{user.name || "Not set"}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-24 font-medium text-gray-700">Email:</span>
+                  <span className="text-gray-600">{user.email || "Not set"}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-24 font-medium text-gray-700">Phone:</span>
+                  <span className="text-gray-600">{user.phone || "Not set"}</span>
+                </div>
+                <button
+                  onClick={() => setEditMode(true)}
+                  className="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200 font-medium"
+                >
+                  Edit Profile
+                </button>
+              </div>
+            )}
             <button
-              type="submit"
-              className="w-full p-3 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg transition"
+              onClick={handleLogout}
+              className="w-full mt-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200 font-medium"
             >
-              Save Changes
-            </button>
-          </form>
-        ) : (
-          <div className="space-y-3">
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Phone:</strong> {user.phone}</p>
-            <button
-              onClick={() => setEditMode(true)}
-              className="w-full p-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition"
-            >
-              Edit Profile
+              Logout
             </button>
           </div>
-        )}
-        <button
-          onClick={handleLogout}
-          className="w-full mt-3 p-3 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-lg transition"
-        >
-          Logout
-        </button>
-      </div>
-      <Navbar />
+        </div>
+      </main>
     </div>
   );
 };
