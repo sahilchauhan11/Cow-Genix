@@ -17,7 +17,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${process.env.URL}/auth/user/profile`,
+        `${process.env.REACT_APP_URL}/auth/user/profile`,
         updatedUser,
         { withCredentials: true }
       );
@@ -33,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${process.env.URL}/auth/user/profile`, { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_URL}/auth/user/profile`, { withCredentials: true });
         if (response.data.success) {
           setUser(response.data.user);
           setUpdatedUser(response.data.user);
@@ -47,7 +47,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post(`${process.env.URL}/auth/user/logout`, {}, { withCredentials: true });
+      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/logout`, {}, { withCredentials: true });
       if (res.data.success) {
         navigate("/");
       }

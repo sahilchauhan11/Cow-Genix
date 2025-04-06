@@ -32,7 +32,7 @@ const VetProfile = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post(`${process.env.URL}/auth/vet/logout`, {}, { withCredentials: true });
+      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/vet/logout`, {}, { withCredentials: true });
       if (res.data.success) {
         navigate("/vet/login");
       }
@@ -44,7 +44,7 @@ const VetProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/auth/vet/profile", { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_URL}/auth/vet/profile`, { withCredentials: true });
         if (response.data.success) {
           setVet(response.data.vet);
           setUpdatedVet(response.data.vet);
