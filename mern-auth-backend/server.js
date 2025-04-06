@@ -15,7 +15,10 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,  // or your frontend URL
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(session({ secret: 'secretkey', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
