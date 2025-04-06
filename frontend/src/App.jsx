@@ -18,6 +18,7 @@ import VetLogin from "./pages/VetLogin";
 import VetProfile from "./pages/VetProfile";
 import Vets from "./pages/Vets";
 import UserVetProfile from "./pages/UserVetProfile";
+import VetAlert from "./pages/VetAlert";
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/history" element={<History />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/vet/profile" element={<VitDashboard />} />
+        <Route path="/vet/alert" element={<VetAlert />} />
         <Route path="/cowprofile" element={<CowProfile />} />
         <Route path="shopPage" element={<ShopPage />} />
         <Route path="alertPage" element={<AlertPage />} />
