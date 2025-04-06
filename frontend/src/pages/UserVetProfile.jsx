@@ -10,7 +10,7 @@ const UserVetProfile = () => {
     useEffect(() => {
         const fetchVet = async () => {
             try {
-                const response = await axios(`${process.env.URL}/auth/user/vet/${id}`, { withCredentials: true });
+                const response = await axios(`${process.env.REACT_APP_URL}/auth/user/vet/${id}`, { withCredentials: true });
                 if (response.data.success) {
                     setVet(response.data.vet);
                 }
