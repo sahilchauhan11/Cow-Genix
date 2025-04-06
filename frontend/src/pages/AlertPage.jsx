@@ -1,6 +1,6 @@
 import React from "react";
-import { Bell, Thermometer, Calendar, Syringe, Stethoscope } from "lucide-react";
 import Navbar from "../components/Navbar";
+import { Bell, Thermometer, Calendar, Syringe, Stethoscope } from "lucide-react";
 
 const AlertsPage = () => {
   const todayAlerts = [
@@ -15,30 +15,28 @@ const AlertsPage = () => {
   ];
 
   return (
-    <div className="p-8 max-w-2xl mx-auto bg-white rounded-xl shadow-xl border border-gray-300">
-      <Header />
-      <AlertsSection title="Today" alerts={todayAlerts} />
-      <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
-    
-    </div>
+    <>
+      <Navbar />
+      <div className="px-4 py-8 max-w-3xl mx-auto">
+        <div className="flex items-center justify-center pb-6 border-b border-gray-300">
+          <h2 className="text-3xl font-bold text-gray-800">Alerts</h2>
+        </div>
+        <AlertsSection title="Today" alerts={todayAlerts} />
+        <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
+      </div>
+    </>
   );
 };
 
-const Header = () => (
-  <div className="flex items-center justify-center pb-6 border-b border-gray-300">
-    <h2 className="text-3xl font-bold text-gray-800">Alerts</h2>
-    <Navbar/>
-  </div>
-);
-
 const AlertsSection = ({ title, alerts }) => (
-    
   <div>
-   
     <h3 className="text-xl font-semibold text-gray-700 my-4">{title}</h3>
     <div className="space-y-3">
       {alerts.map((alert, index) => (
-        <div key={index} className="flex items-center p-5 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-200 space-x-4 border border-gray-200">
+        <div
+          key={index}
+          className="flex items-center p-5 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-200 space-x-4 border border-gray-200"
+        >
           <div className="p-3 bg-gray-100 rounded-full">{alert.icon}</div>
           <div>
             <p className="text-gray-900 font-semibold text-lg">{alert.name}</p>
@@ -47,7 +45,6 @@ const AlertsSection = ({ title, alerts }) => (
         </div>
       ))}
     </div>
-
   </div>
 );
 
