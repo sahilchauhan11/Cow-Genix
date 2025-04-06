@@ -12,6 +12,7 @@ const VetLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(process.env.REACT_APP_URL);
       const res = await axios.post(`${process.env.REACT_APP_URL}/auth/vet/login`, {
         email,
         password,
