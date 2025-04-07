@@ -4,15 +4,15 @@ import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({url}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate=useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(`Making request to: ${process.env.REACT_APP_URL}/auth/user/login`);
-      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/login`, { email, password },{withCredentials:true});
+      console.log(`Making request to: ${url}/auth/user/login`);
+      const res = await axios.post(`${url}/auth/user/login`, { email, password },{withCredentials:true});
       console.log('Login successful:', res);
       navigate("/home")
     } catch (error) {

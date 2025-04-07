@@ -3,13 +3,13 @@ import axios from "axios";
 import Navbar from '../components/Navbar';
 import { NavLink } from 'react-router-dom';
 
-const Vets = () => {
+const Vets = ({url}) => {
     const [vets, setVets] = useState([]);
 
     useEffect(() => {
         const fetchVets = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_URL}/auth/user/allvet`, { withCredentials: true });
+                const response = await axios.get(`${url}/auth/user/allvet`, { withCredentials: true });
                 if (response.data.success) {
                     setVets(response.data.vetArr);
                 }

@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = ({url}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +15,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/user/signup`, { name, email, phone, password }, { withCredentials: true });
+      const res = await axios.post(`${url}/auth/user/signup`, { name, email, phone, password }, { withCredentials: true });
       console.log('Signup successful:', res.data);
       navigate("/home");
     } catch (error) {
