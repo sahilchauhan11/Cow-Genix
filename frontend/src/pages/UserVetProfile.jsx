@@ -3,14 +3,14 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
-const UserVetProfile = () => {
+const UserVetProfile = ({url}) => {
     const [vet, setVet] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchVet = async () => {
             try {
-                const response = await axios(`${process.env.REACT_APP_URL}/auth/user/vet/${id}`, { withCredentials: true });
+                const response = await axios(`${url}/auth/user/vet/${id}`, { withCredentials: true });
                 if (response.data.success) {
                     setVet(response.data.vet);
                 }

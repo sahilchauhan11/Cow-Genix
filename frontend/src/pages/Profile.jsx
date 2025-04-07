@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
-const Profile = () => {
+const Profile = ({url}) => {
   const [user, setUser] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({});
@@ -17,7 +17,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_URL}/auth/user/profile`,
+        `${url}/auth/user/profile`,
         updatedUser,
         { withCredentials: true }
       );

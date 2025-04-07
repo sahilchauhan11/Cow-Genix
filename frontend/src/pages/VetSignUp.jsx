@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-const VetSignUp = () => {
+const VetSignUp = ({url}) => {
   const [vetData, setVetData] = useState({
     name: "",
     email: "",
@@ -24,7 +24,7 @@ const VetSignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_URL}/auth/vet/signup`, vetData,{withCredentials:true});
+      const res = await axios.post(`${url}/auth/vet/signup`, vetData,{withCredentials:true});
       console.log("Vet Signup successful:", res.data);
       navigate("/vet/dashboard");
     } catch (error) {
