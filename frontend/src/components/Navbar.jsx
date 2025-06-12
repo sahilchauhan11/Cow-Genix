@@ -1,13 +1,13 @@
-// src/components/VetNavbar.js
+// src/components/Navbar.js
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const VetNavbar = () => {
+const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 w-full h-16 bg-white px-6 flex items-center justify-around shadow-md z-50">
         <NavLink
-          to="/vet/dashboard"
+          to="/home"
           className={({ isActive }) =>
             isActive
               ? "text-blue-600 font-semibold"
@@ -18,7 +18,7 @@ const VetNavbar = () => {
         </NavLink>
 
         <NavLink
-          to="/vet/profile"
+          to="/profile"
           className={({ isActive }) =>
             isActive
               ? "text-blue-600 font-semibold"
@@ -29,7 +29,7 @@ const VetNavbar = () => {
         </NavLink>
 
         <NavLink
-          to="/vet/alert"
+          to="/alertPage"
           className={({ isActive }) =>
             isActive
               ? "text-blue-600 font-semibold"
@@ -37,6 +37,17 @@ const VetNavbar = () => {
           }
         >
           Alert
+        </NavLink>
+
+        <NavLink
+          to="/vets"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold"
+              : "text-gray-500 hover:text-blue-500"
+          }
+        >
+          Vet
         </NavLink>
       </nav>
 
@@ -46,4 +57,5 @@ const VetNavbar = () => {
   );
 };
 
-export default VetNavbar;
+export default Navbar;
+

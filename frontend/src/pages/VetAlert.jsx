@@ -1,5 +1,6 @@
 import React from "react";
 import { Bell, Thermometer, Calendar, Syringe, Stethoscope } from "lucide-react";
+import VetNavbar from "../components/VetNavbar";
 
 const VetAlert = () => {
   const todayAlerts = [
@@ -14,29 +15,27 @@ const VetAlert = () => {
   ];
 
   return (
-    <div className="p-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-xl shadow-xl border border-gray-300">
-          <Header />
-          <div className="p-6">
-            <AlertsSection title="Today" alerts={todayAlerts} />
-            <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
-          </div>
-        </div>
-      </div>
+    <div className="p-8 max-w-2xl mx-auto bg-white rounded-xl shadow-xl border border-gray-300">
+      <Header />
+      <AlertsSection title="Today" alerts={todayAlerts} />
+      <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
+    
     </div>
   );
 };
 
 const Header = () => (
-  <div className="flex items-center justify-center p-6 border-b border-gray-300">
+  <div className="flex items-center justify-center pb-6 border-b border-gray-300">
     <h2 className="text-3xl font-bold text-gray-800">Alerts</h2>
+    <VetNavbar/>
   </div>
 );
 
 const AlertsSection = ({ title, alerts }) => (
+    
   <div>
-    <h3 className="text-xl font-semibold text-gray-700 mb-4">{title}</h3>
+   
+    <h3 className="text-xl font-semibold text-gray-700 my-4">{title}</h3>
     <div className="space-y-3">
       {alerts.map((alert, index) => (
         <div key={index} className="flex items-center p-5 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-200 space-x-4 border border-gray-200">
@@ -48,6 +47,7 @@ const AlertsSection = ({ title, alerts }) => (
         </div>
       ))}
     </div>
+
   </div>
 );
 
