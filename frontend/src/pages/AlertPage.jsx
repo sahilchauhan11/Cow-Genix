@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import { Bell, Thermometer, Calendar, Syringe, Stethoscope } from "lucide-react";
 
 const AlertsPage = () => {
@@ -15,16 +14,15 @@ const AlertsPage = () => {
   ];
 
   return (
-    <>
-      <Navbar />
-      <div className="px-4 py-8 max-w-3xl mx-auto">
+    <div className="p-6">
+      <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-center pb-6 border-b border-gray-300">
           <h2 className="text-3xl font-bold text-gray-800">Alerts</h2>
         </div>
         <AlertsSection title="Today" alerts={todayAlerts} />
         <AlertsSection title="Upcoming" alerts={upcomingAlerts} />
       </div>
-    </>
+    </div>
   );
 };
 
@@ -35,7 +33,7 @@ const AlertsSection = ({ title, alerts }) => (
       {alerts.map((alert, index) => (
         <div
           key={index}
-          className="flex items-center p-5 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-200 space-x-4 border border-gray-200"
+          className="flex items-center p-5 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-200 space-x-4 border border-gray-200"
         >
           <div className="p-3 bg-gray-100 rounded-full">{alert.icon}</div>
           <div>
